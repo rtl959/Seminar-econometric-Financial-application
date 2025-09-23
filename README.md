@@ -1,0 +1,2 @@
+# Seminar econometric Financial application
+ 
