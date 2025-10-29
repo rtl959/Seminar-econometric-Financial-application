@@ -1,42 +1,30 @@
+##
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from dateutil.relativedelta import relativedelta
 import datetime
-import yfinance as yf
 
 tickers= ["LLY", "JNJ", "ABBV", "RHHBY", "AZN", "NVS", "NVO", "MRK", "AMGN", "PFE", "GILD", "SNY", "BMY", "GSK", "BIIB", "OGN"]
+
 start= datetime.datetime(2015, 1, 1)
 end= datetime.datetime(2025, 1, 1)
 
-#Download data in long format
-def yf_long(tickers, startdate, enddate, interval="1d", auto_adjust=False, progress=False):
-    df = yf.download(
-        tickers=tickers,
-        start=startdate,
-        end=enddate,
-        interval=interval,
-        auto_adjust=auto_adjust,
-        progress=progress
-    )
+def get(tickers, startdate, enddate):
+    def data(ticker):
+        full = pd.read_csv('C:/Users/cooki/OneDrive/Uni/Seminar Econ in financial application/Seminar kode mappe/Seminar-econometric-Financial-application/by_ticker_csv/' + tickers + '.CSV', parse_dates=[3], index_col='Date')
+        full = full.loc[start:end]
+        
+        return full
+    datas = map(data, tickers)
+    full_concat = pd.concat(datas, keys=tickers, names=['Ticker', 'Date'])
+    full_concat = full_concat.drop(['SNo', 'Name', 'Ticker', 'Marketcap'], axis = 1)
+    full_concat['Adj Close'] = full_concat.Close
 
-    if isinstance(df.columns, pd.MultiIndex):
-        df = df.stack(level=1).rename_axis(['Date', 'Ticker']).reset_index()
-    else:
-        df = df.reset_index()
-        df["Ticker"] = tickers if isinstance(tickers, str) else tickers[0]
-    return df
-
-data= yf_long(tickers, start, end)
-
-print(data.head())
-
-csv_filename = "pharma_stocks_2015_2025.csv"
-data.to_csv(csv_filename, index=False)
-print(f"\n✅ Data saved to '{csv_filename}' successfully!")
+    return full_concat
 
 def prep_data(tickers, start, end, K):
-    all_data = yf_long(tickers, startdate=start, enddate=end)
+    all_data = get(tickers, startdate=start, enddate=end)
     daily_close_px = all_data[['Adj Close']].reset_index().pivot('Date', 'Ticker', 'Adj Close')
     daily_pct_change = daily_close_px.pct_change()
 
@@ -263,6 +251,7 @@ max_depth.append(None)
 min_samples_split = [2, 5, 10]
 min_samples_leaf = [1, 2, 4]
 bootstrap = [True, False]
+
 # Create the random grid
 random_grid = {'n_estimators': n_estimators,
                'max_features': max_features,

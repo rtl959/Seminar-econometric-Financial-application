@@ -1,0 +1,16 @@
+%pip install yfinance
+%pip install numpy
+%pip install pandas
+%pip install pylance
+%pip install matplotlib
+%pip install seaborn
+%pip install scipy
+%pip install Quandl
+%pip install pandas-datareader
+%pip install numba
+%pip install jupyterlab
+%pip install ipywidgets
+%pip install ipython
+%pip install ipykernel
+%pip install yfinance pandas XlsxWriter
+%pip install 
