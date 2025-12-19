@@ -1,11 +1,11 @@
 This code is produced by Tobias Dines Schlünssen and Conrad Frederik Kromann for the seminar: "Econometric models in financial application" by Frederik Findsen and Mads Thordahl
 
-Credit goes to Mads Hemmingsen, and his paper "Momentum, Machine Learning, and
-Cryptocurrency", for taking inspiration of his analysis.
+Credit to Mads Hemmingsen, and his paper "Momentum, Machine Learning, and
+Cryptocurrency", inspiring this analysis.
 
 The folder contains of the following:
 1) by_ticker_csv (folder) - contains all the CSV files with the data from Yahoo Finance API
-2) Full_code (.ipynb file) - contains the code creating the analysis with the momentum, vol. adj. momentum and the random forest model.
+2) Full_code (.ipynb file) - contains the code creating the analysis with the momentum, vol. and volvolm adj. momentum and the random forest model.
     The individual has been coded in seperate files and compiled into one full code in the end (hence why the imports happens multible times)
 3) yf (.ipynb file) - Contains the code to pull the ticker data a produce the csv-files if needed
 
